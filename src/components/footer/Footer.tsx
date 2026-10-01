@@ -1,0 +1,17 @@
+import React from 'react';
+
+export default function Footer(){
+  return (
+    <footer className="footer">
+      <div className="container footer__inner">
+        <a href="#home" className="footer__brand">AK.</a>
+        <p>© {new Date().getFullYear()} Asif Khan. All rights reserved.</p>
+        <div className="footer__socials">
+          <a href="https://www.behance.net/asifkhanafridi" target="_blank" rel="noreferrer">Behance</a>
+          <a href="https://github.com/asifaliafridi" target="_blank" rel="noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/asifkhanafridi" target="_blank" rel="noreferrer">LinkedIn</a>
+        </div>
+      </div>
+    </footer>
+  );
+}
