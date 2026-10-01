@@ -1,4 +1,4 @@
-import React from 'react';import{createRoot}from'react-dom/client';import{Canvas}from'@react-three/fiber';import{Float,OrbitControls,Stars,Environment}from'@react-three/drei';import './style.css';
+import React from 'react';import React from 'react';import{createRoot}from'react-dom/client';import{Canvas}from'@react-three/fiber';import{Float,OrbitControls,Stars,Environment}from'@react-three/drei';import './style.css';
 
 const BASE='https://raw.githubusercontent.com/asifaliafridi/MyPortfolio/main/src/assets/';
 const projects=[
