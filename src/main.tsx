@@ -5,7 +5,23 @@ const projects=[
 {title:'Web Design',cat:'Web',img:'portfolio-2.jpg'},{title:'App Design',cat:'App',img:'portfolio-3.jpg'},{title:'Dashboard Design',cat:'Design',img:'portfolio-5.jpg'},{title:'App Design',cat:'App',img:'portfolio-7.jpg'},{title:'App Design',cat:'App',img:'portfolio-9.jpg'},{title:'Web Design',cat:'Web',img:'portfolio-10.jpg'}
 ];
 
-function Scene(){return <Canvas camera={{position:[0,0,7],fov:45}} dpr={[1,1.7]}><ambientLight intensity={1.1}/><directionalLight position={[3,4,5]} intensity={2}/><Stars radius={40} depth={20} count={900} factor={2} saturation={0} fade/><Float speed={1.4} rotationIntensity={1.2} floatIntensity={1.8}><mesh rotation={[0.35,0.45,0.2]}><icosahedronGeometry args={[1.55,2]}/><meshStandardMaterial color="#8b5cf6" metalness={0.65} roughness={0.2} wireframe/></mesh></Float><Float speed={2} floatIntensity={2}><mesh position={[2.4,1.4,-1]}><torusGeometry args={[0.55,0.16,24,64]}/><meshStandardMaterial color="#22d3ee" metalness={0.8} roughness={0.15}/></mesh></Float><Environment preset="city"/><OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.35}/></Canvas>}
+function Scene(){
+  const group=React.useRef<any>(null);
+  const [hovered,setHovered]=React.useState(false);
+  return <Canvas camera={{position:[0,0,7],fov:45}} dpr={[1,1.7]} onPointerMove={(e)=>{if(!group.current)return;group.current.rotation.y=e.pointer.x*0.18;group.current.rotation.x=-e.pointer.y*0.12}}>
+    <ambientLight intensity={1.1}/><directionalLight position={[3,4,5]} intensity={2.2}/><pointLight position={[-4,-2,3]} intensity={12} distance={9} color="#7c3aed"/>
+    <Stars radius={40} depth={20} count={900} factor={2} saturation={0} fade/>
+    <group ref={group}>
+      <Float speed={1.4} rotationIntensity={1.2} floatIntensity={1.8}>
+        <mesh onPointerOver={()=>setHovered(true)} onPointerOut={()=>setHovered(false)} scale={hovered?1.06:1} rotation={[0.35,0.45,0.2]}>
+          <icosahedronGeometry args={[1.55,2]}/><meshStandardMaterial color="#8b5cf6" emissive="#3b1d76" emissiveIntensity={hovered?.8:.35} metalness={0.7} roughness={0.18} wireframe/>
+        </mesh>
+      </Float>
+      <Float speed={2} floatIntensity={2}><mesh position={[2.4,1.4,-1]}><torusGeometry args={[0.55,0.16,24,64]}/><meshStandardMaterial color="#22d3ee" emissive="#064e5b" emissiveIntensity={1} metalness={0.85} roughness={0.12}/></mesh></Float>
+      <Float speed={1.6} floatIntensity={1.5}><mesh position={[-2.2,-1.5,0]} rotation={[.4,.2,.5]}><octahedronGeometry args={[.45,0]}/><meshStandardMaterial color="#f4f4f5" metalness={.8} roughness={.2}/></mesh></Float>
+    </group><Environment preset="city"/><OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.35}/>
+  </Canvas>
+}
 
 function App(){const[filter,setFilter]=React.useState('All');const shown=filter==='All'?projects:projects.filter(p=>p.cat===filter);return <div className="app">
 <header><a className="logo" href="#home">AK<span>.</span></a><nav>{['Home','About','Skills','Services','Portfolio','Contact'].map(x=><a key={x} href={'#'+x.toLowerCase()}>{x}</a>)}</nav><a className="nav-cta" href="#contact">Let's Talk</a></header>
